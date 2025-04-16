@@ -1,52 +1,51 @@
 import http from 'http';
 import app from './app.js';
 import config from './config/config.js';
+import { initDatabase } from './config/database.js';
 
 console.log('🚀 Starting server...');
 
-// Normaliser le port
-const normalizePort = (val) => {
-    const port = parseInt(val, 10);
-    if (isNaN(port)) {
-        return val;
-    }
-    if (port >= 0) {
-        return port;
-    }
-    return false;
-};
-const port = normalizePort(config.PORT);
+let server;
 
-app.set('port', port);
+const startServer = async () => {
+	try {
+		// Connexion à la base SQLite
+		await initDatabase();
 
-const errorHandler = error => {
-    if (error.syscall !== 'listen') {
-        throw error;
-    }
-    const address = server.address();
-    const bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + port;
-    switch (error.code) {
-        case 'EACCES':
-            console.error(bind + ' requires elevated privileges.');
-            process.exit(1);
-            break;
-        case 'EADDRINUSE':
-            console.error(bind + ' is already in use.');
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
+		// Lancement du serveur
+		server = app.listen(config.PORT, config.HOST, () => {
+			console.log(`✅ Server running at Port :${config.PORT}`);
+		});
+	} catch (err) {
+		console.error('❌ Failed to start server:', err);
+		process.exit(1);
+	}
 };
 
-// Créer le serveur HTTP
-const server = http.createServer(app);
+startServer();
 
-server.on('error', errorHandler);
-server.on('listening', () => {
-    const address = server.address();
-    const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
-    console.log(`🚀 Server is running on ${bind}`);
+const exitHandler = () => {
+	if (server) {
+		server.close(() => {
+			console.log('🛑 Server closed');
+			process.exit(1);
+		});
+	} else {
+		process.exit(1);
+	}
+};
+
+const unexpectedErrorHandler = (err) => {
+	console.error('💥 Unexpected error:', err);
+	exitHandler();
+};
+
+process.on('uncaughtException', unexpectedErrorHandler);
+process.on('unhandledRejection', unexpectedErrorHandler);
+
+process.on('SIGTERM', () => {
+	console.info('📴 SIGTERM received');
+	if (server) {
+		server.close();
+	}
 });
-
-server.listen(port);
