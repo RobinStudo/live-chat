@@ -1,5 +1,6 @@
 import http from 'http';
 import app from './app.js';
+import config from './config/config.js';
 
 console.log('🚀 Starting server...');
 
@@ -14,7 +15,7 @@ const normalizePort = (val) => {
     }
     return false;
 };
-const port = normalizePort(process.env.PORT);
+const port = normalizePort(config.PORT);
 
 app.set('port', port);
 
