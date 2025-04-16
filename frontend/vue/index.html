@@ -4,10 +4,17 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Vite App</title>
-        <link rel="stylesheet" href="/frontend/src/style.css">
-        <script type="module" src="/frontend/src/main.js" defer></script>
+        <link rel="stylesheet" href="../../frontend/src/style.css">
+        <script type="module" src="../../frontend/src/main.js" defer></script>
     </head>
     <body>
-        
+        <main class="welcome-page">
+            <h1>Bienvenue !</h1>
+            <form id="username-form">
+              <label for="username">Choisis un pseudo :</label>
+              <input type="text" id="username" required />
+              <button>Entrer dans le chat</button>
+            </form>
+          </main>
     </body>
-</html>
+    </html>
