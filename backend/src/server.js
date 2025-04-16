@@ -12,7 +12,7 @@ const startServer = async () => {
 		await initDatabase();
 
 		// Lancement du serveur
-		server = app.listen(config.PORT, config.HOST, () => {
+		server = app.listen(config.PORT, () => {
 			console.log(`✅ Server running at Port :${config.PORT}`);
 		});
 	} catch (err) {
