@@ -1,5 +1,7 @@
 import http from 'http';
-import app from './app';
+import app from './app.js';
+
+console.log('🚀 Starting server...');
 
 // Normaliser le port
 const normalizePort = (val) => {
@@ -43,7 +45,7 @@ server.on('error', errorHandler);
 server.on('listening', () => {
     const address = server.address();
     const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
-    console.log('Listening on ' + bind);
+    console.log(`🚀 Server is running on ${bind}`);
 });
 
 server.listen(port);
