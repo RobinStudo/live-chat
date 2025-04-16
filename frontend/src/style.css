@@ -1,3 +1,12 @@
+/* style.css */
+@import url('./reset.css');
+@import url('./variables.css');
+@import url('./layout.css');
+@import url('../components/RoomList/RoomList.css');
+@import url('../components/MessageList/MessageList.css');
+@import url('../components/ChatForm/ChatForm.css');
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

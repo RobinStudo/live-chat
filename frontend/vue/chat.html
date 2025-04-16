@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vite App</title>
+        <link rel="stylesheet" href="../../frontend/src/style.css">
+        <script type="module" src="../../frontend/src/main.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1>Live chat</h1>
+            <span id="user-display"></span>
+          </header>
+        
+          <main class="layout">
+            <aside class="room-list">
+              <div class="room-list-header">
+                <h2>Salons</h2>
+                <button id="add-room">+ Nouveau salon</button>
+              </div>
+              <ul id="room-list">
+                <li class="room"># général</li>
+                <li class="room"># dev</li>
+                <li class="room"># design</li>
+              </ul>
+            </aside>
+        
+            <section class="chat-area">
+              <div id="messages"></div>
+              <form id="message-form">
+                <label for="message" class="sr-only">Message</label>
+                <input type="text" id="message" placeholder="Ton message" required />
+                <button type="submit">Envoyer</button>
+              </form>
+            </section>
+          </main>
+    </body>
+</html>
